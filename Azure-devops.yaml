@@ -17,9 +17,6 @@ steps:
     sudo apt-get update
     sudo apt-get install -y openjdk-11-jdk
 
-    echo "Building OpenMRS Core..."
-    mvn clean install -DskipTests
-
 - task: Docker@2
   inputs:
     command: 'buildAndPush'
