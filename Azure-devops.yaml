@@ -18,7 +18,6 @@ steps:
     sudo apt-get install -y openjdk-11-jdk
 
     echo "Building OpenMRS Core..."
-    cd openmrs-core
     ./mvnw clean install -DskipTests
 
 - task: Docker@2
