@@ -23,10 +23,10 @@ FROM adoptopenjdk:11-jre-hotspot
 WORKDIR /app
 
 # Copy the built artifacts from the builder image
-COPY --from=builder /app/openmrs-core/webapp/target/openmrs.war /app/openmrs.war
+COPY --from=builder /app/openmrs-core/target/openmrs-core-2.5.0-SNAPSHOT.jar /app/openmrs-core.jar
 
 # Expose the default port for OpenMRS
 EXPOSE 8080
 
 # Set the entry point command to run OpenMRS
-CMD ["java", "-jar", "openmrs.war"]
+CMD ["java", "-jar", "openmrs-core.jar"]
