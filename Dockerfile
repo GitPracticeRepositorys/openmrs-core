@@ -1,5 +1,8 @@
-# Use a base image with Java and Maven installed
-FROM maven:3.8.4-openjdk-11-slim AS builder
+# Use a base image with Maven and Git installed
+FROM maven:3.8.4-openjdk-11 AS builder
+
+# Install Git
+RUN apt-get update && apt-get install -y git
 
 # Set the working directory
 WORKDIR /app
@@ -7,14 +10,14 @@ WORKDIR /app
 # Clone the OpenMRS Core repository
 RUN git clone https://github.com/GitPracticeRepositorys/openmrs-core.git
 
-# Change to the cloned repository directory
+# Change to the OpenMRS Core directory
 WORKDIR /app/openmrs-core
 
 # Build the project using Maven
 RUN mvn clean install -DskipTests
 
-# Use a new base image with Java installed
-FROM openjdk:11-jre-slim
+# Use a new base image with Java only
+FROM adoptopenjdk:11-jre-hotspot
 
 # Set the working directory
 WORKDIR /app
