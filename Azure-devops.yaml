@@ -38,3 +38,4 @@ steps:
 - script: |
     echo "Docker image pushed successfully!"
   displayName: 'Success Message'
+
