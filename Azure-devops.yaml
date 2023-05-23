@@ -1,0 +1,40 @@
+trigger:
+  branches:
+    include:
+      - '*'
+
+prerequisites:
+  - azureGitCheckout
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  dockerRegistry: 'Docker'  # Replace with your Docker registry URL
+  dockerImageName: 'shivakrishna99/az-openmrs'    # Replace with your Docker image name
+  dockerfilePath: './Dockerfile'          # Replace with the path to your Dockerfile
+
+steps:
+- script: |
+    echo "Installing Java..."
+    sudo apt-get update
+    sudo apt-get install -y openjdk-11-jdk
+
+    echo "Building OpenMRS Core..."
+    cd openmrs-core
+    ./mvnw clean install -DskipTests
+
+- task: Docker@2
+  inputs:
+    command: 'buildAndPush'
+    containerRegistry: '$(dockerRegistry)'
+    repository: '$(dockerImageName)'
+    dockerfile: '$(dockerfilePath)'
+    tags: |
+      $(Build.BuildId)
+      latest
+  displayName: 'Build and Push Docker Image'
+
+- script: |
+    echo "Docker image pushed successfully!"
+  displayName: 'Success Message'
