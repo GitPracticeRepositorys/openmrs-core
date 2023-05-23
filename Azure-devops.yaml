@@ -7,7 +7,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  dockerRegistry: 'Docker'  # Replace with your Docker registry URL
+  dockerRegistry: 'Docker-Hub-Connection'  # Replace with your Docker registry URL
   dockerImageName: 'shivakrishna99/az-openmrs'    # Replace with your Docker image name
   dockerfilePath: './Dockerfile'          # Replace with the path to your Dockerfile
 
